@@ -66,9 +66,3 @@ class Encoder:
         frame.show()
         frame.save(f'frame{count}.png')
         self.frames.append(f'frame{count}.png')
-
-
-a = Encoder(file_to_text('Latin-Lipsum.txt'))
-ascii_holder = a.text_to_ascii()
-
-a.ascii_to_rgb(30, ascii_holder)
