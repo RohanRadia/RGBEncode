@@ -1,3 +1,4 @@
+import cv2
 from PIL import Image
 
 
@@ -63,6 +64,35 @@ class Encoder:
             pixels[a, b] = tuple(letter)
             b += 1
 
-        frame.show()
         frame.save(f'frame{count}.png')
+        frame.show()
         self.frames.append(f'frame{count}.png')
+
+    def rgbframes_to_video(self):
+        image_array = []
+
+        for frame in self.frames:
+            with open(frame, 'r') as f:
+                img = cv2.imread(frame)
+                height, width, layers = img.shape
+                size = (width, height)
+                image_array.append(img)
+
+        # output = cv2.VideoWriter('encoded.avi',cv2.VideoWriter_fourcc(*'DIVX'), 10, size)
+        # output = cv2.VideoWriter('encoded.mp4', cv2.VideoWriter_fourcc(*'MP4V'), 10, size)
+        output = cv2.VideoWriter('encoded.mp4', 0x7634706d, 1, size)
+
+        for i in range(len(image_array)):
+            output.write(image_array[i])
+
+        output.release()
+
+
+
+#a = Encoder(file_to_text('Latin-Lipsum.txt')*100)
+a = Encoder("I'm known as Mr Rohan Radia")
+ascii_holder = a.text_to_ascii()
+
+a.ascii_to_rgb(9, ascii_holder)
+
+#a.rgbframes_to_video()
