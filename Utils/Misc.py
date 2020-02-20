@@ -46,7 +46,7 @@ def from_three(three_list: list):  # define required arguments
 
 
 # Vigenère cipher encrypt method
-def encrypt(key: str, string: str):  # define required arguments
+def encrypt(string: str, key: str = " "):  # define required arguments
     encrypted_chars = []  # array to store all encoded letters in
 
     for i in range(len(string)):  # loops through all letter in string
@@ -61,7 +61,7 @@ def encrypt(key: str, string: str):  # define required arguments
 
 
 # Vigenère cipher decrypt method
-def decrypt(key: str, string: str):  # define required arguments
+def decrypt(string: str, key: str = " "):  # define required arguments
     decrypted_chars = []
 
     for i in range(len(string)):  # loops through all letter in string

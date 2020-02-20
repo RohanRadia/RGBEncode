@@ -1,5 +1,5 @@
 import cv2  # import video generating/encoding library
-import os
+import os  # import operating system interaction library
 from PIL import Image  # import image generating library
 
 from Misc import to_ascii, to_three, encrypt  # import all miscellaneous functions from utils
@@ -53,20 +53,18 @@ class Encode:  # generate class
                 # shape attribute
                 size = (width, height)  # size is equal to the width and height that were extracted from the frame
                 image_array.append(img)  # append the image stored in the img variable to imgage_array
-        print('above')
-        if os.path.exists(f'{file_name}.mp4') is True:
-            print('hit')
-            file_increment = 1
 
-            while os.path.exists(f"{file_name}{file_increment}.mp4"):
-                print('hit')
-                file_increment += 1
+        if os.path.exists(f'{file_name}.mp4') is True:  # if a file with the given file name exists already then...
+            file_increment = 1  # set the file counter to 1
 
-        else:
-            file_increment = None
-            file_increment = ''
+            while os.path.exists(f"{file_name}{file_increment}.mp4"):  # while files with the set name + increment exist
+                file_increment += 1  # increment up by 1
 
-        output = cv2.VideoWriter(f'{file_name}{file_increment}.mp4', 0x7634706d, 1, size)  # encode the base video as mp4
+        else:  # else...
+            file_increment = None  # reset variable type of file_increment
+            file_increment = ''  # set the value to an empty character in order not to change the name of the .mp4 file
+
+        output = cv2.VideoWriter(f'{file_name}{file_increment}.mp4', 0x7634706d, 1, size)  # encode the video as .mp4
 
         for i in range(len(image_array)):  # for each value in the length of image_array, assign the value to i
             output.write(image_array[i])  # write to output the image in position i of image_array
@@ -78,7 +76,7 @@ class Encode:  # generate class
     def run(self):  # define required arguments
         """Encrypt"""
         if len(self.key) is not 0:  # if the key provided is not empty then...
-            self.data = encrypt(self.key, self.raw_data)  # encrypt the data and store it in the self.data variable
+            self.data = encrypt(self.raw_data, self.key)  # encrypt the data and store it in the self.data variable
         else:  # else...
             self.data = self.raw_data  # make self.data equal to self.raw_data as not encryption needs to be applied
 
