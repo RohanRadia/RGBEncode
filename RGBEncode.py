@@ -1,6 +1,5 @@
 from Utils.Decode import *
 from Utils.Encode import *
-from Utils.Misc import *
 
 
 class RGBEncode:  # generate class

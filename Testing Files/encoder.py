@@ -43,6 +43,7 @@ class Encoder:
         a = 0
         b = 0
         count = 0
+        print(ascii_list)
 
         frame = Image.new('RGB', (size, size), "black")
         pixels = frame.load()

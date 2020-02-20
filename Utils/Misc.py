@@ -26,11 +26,17 @@ def to_three(ascii_list: list):  # define required arguments
         three_list[-1].append(ascii_list[i])  # append the value from ascii_list in position i into the mini list
         # stored in the last position of three_list
 
+    while len(three_list[-1]) is not 3:  # if the length of the mini ascii list in the last position is not 3 then...
+        three_list[-1].append(0)  # append 0
+
     return three_list  # output should be similar to: [[1, 2, 3], [4, 5, 6], [7]]
 
 
 def from_three(three_list: list):  # define required arguments
     ascii_list = []  # array to store all ascii values
+
+    while three_list[-1][-1] is 0:  # while the last value of the last mini list is 0 then...
+        three_list[-1].pop(-1)  # remove that value from the list
 
     for array in three_list:  # loop through arrays in three_list
         for value in array:  # for each value in array...
