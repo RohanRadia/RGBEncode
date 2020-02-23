@@ -35,8 +35,8 @@ def to_three(ascii_list: list):  # define required arguments
 def from_three(three_list: list):  # define required arguments
     ascii_list = []  # array to store all ascii values
 
-    while three_list[-1][-1] is 0:  # while the last value of the last mini list is 0 then...
-        three_list[-1].pop(-1)  # remove that value from the list
+#    while three_list[-1][-1] is 0:  # while the last value of the last mini list is 0 then...
+#        three_list[-1].pop(-1)  # remove that value from the list
 
     for array in three_list:  # loop through arrays in three_list
         for value in array:  # for each value in array...

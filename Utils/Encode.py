@@ -28,7 +28,7 @@ class Encode:  # generate class
                 frame.save(f'frame{count}.png')  # save the frame
                 self.frames.append(f'frame{count}.png')  # append the frame to the array
                 count += 1  # increase the frame count by 1
-                frame = Image.new('RGB', (size, size), "black")  # generate new frame
+                frame = Image.new('RGB', (size, size), (0, 0, 0))  # generate new frame
                 pixels = frame.load()  # load the frame for editing
                 a = 0  # reset the layer position
                 b = 0  # reset the row position
@@ -52,7 +52,7 @@ class Encode:  # generate class
                 height, width, layers = img.shape  # make height, width and layers variables equal to output of img
                 # shape attribute
                 size = (width, height)  # size is equal to the width and height that were extracted from the frame
-                image_array.append(img)  # append the image stored in the img variable to imgage_array
+                image_array.append(img)  # append the image stored in the img variable to image_array
 
         if os.path.exists(f'{file_name}.mp4') is True:  # if a file with the given file name exists already then...
             file_increment = 1  # set the file counter to 1
@@ -70,8 +70,6 @@ class Encode:  # generate class
             output.write(image_array[i])  # write to output the image in position i of image_array
 
         output.release()  # release software and hardware resources
-
-        print(f'{file_name}{file_increment}.mp4')
 
     def run(self):  # define required arguments
         """Encrypt"""
@@ -93,3 +91,6 @@ class Encode:  # generate class
         """Delete Generated Frames"""
         for frame in self.frames:
             os.remove(frame)
+
+a = Encode("thisok", "rohan")
+a.run()
