@@ -12,7 +12,7 @@ class GUI:
         filename = askopenfilename()
         self.file_name = filename
 
-    def run(self):
+    def gui(self):
         root = tkinter.Tk()
 
         """Basic Background"""
@@ -63,6 +63,9 @@ class GUI:
         run.place(x=600, y=620)
 
         root.mainloop()
+
+    def run(self):
+        self.gui()
 
 
 new_GUI = GUI()

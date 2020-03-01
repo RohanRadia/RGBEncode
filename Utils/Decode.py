@@ -42,10 +42,10 @@ class Decode:  # generate class
 
     def run(self):
         """Deconstruct Video To Frames"""
-        a.from_video()
+        self.from_video()
 
         """Deconstruct Frames To Ascii"""
-        a.from_frames()
+        self.from_frames()
         self.ascii_list = from_three(self.three_list)
 
         """Ascii To Letters"""

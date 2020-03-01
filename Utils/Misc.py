@@ -73,3 +73,5 @@ def decrypt(string: str, key: str = " "):  # define required arguments
     decrypted_string = ''.join(decrypted_chars)  # append all decrypted characters into a single string
 
     return decrypted_string
+
+print(encrypt("I am a developer and I love code", "devs"))
