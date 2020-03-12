@@ -1,3 +1,7 @@
+import requests
+from urllib.request import urlopen
+
+
 def to_ascii(text: str):  # define required arguments
     ascii_array = []  # array to store letters once converted to ascii
 
@@ -74,4 +78,9 @@ def decrypt(string: str, key: str = " "):  # define required arguments
 
     return decrypted_string
 
-print(encrypt("I am a developer and I love code", "devs"))
+
+def shorten_url(url: str):
+    base = "http://tinyurl.com/api-create.php?"
+    data = {"url": url}
+    response = requests.post(base, data=data)
+    return response.text

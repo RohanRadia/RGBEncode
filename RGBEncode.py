@@ -12,4 +12,3 @@ class RGBEncode:  # generate class
 
 #        self.decode = Decode()  # initiate Decode class
 #        self.encode = Encode(raw_data, encryption_key)  # initiate Encode class
-
