@@ -43,6 +43,7 @@ class Encode:  # generate class
         frame.save(f'frame{count}.png')  # save the frame
         self.frames.append(f'frame{count}.png')  # append the name of the frame to the frames list
 
+    """
     def to_video(self, file_name: str = "encoded"):  # define required arguments
         image_array = []  # define image_array variable
 
@@ -70,6 +71,7 @@ class Encode:  # generate class
             output.write(image_array[i])  # write to output the image in position i of image_array
 
         output.release()  # release software and hardware resources
+    """
 
     def run(self):  # define required arguments
         """Encrypt"""

@@ -17,6 +17,7 @@ class Decode:  # generate class
         self.encrypted_chars = ''
         self.decrypted_chars = ''
 
+    """
     def from_video(self):  # define required arguments
         video = cv2.VideoCapture(f"{self.video_name}.mp4")
 
@@ -28,6 +29,7 @@ class Decode:  # generate class
             cv2.imwrite(f"frame{count}.png", image)
             success, image = video.read()
             count += 1
+    """
 
     def from_frames(self):  # define required arguments
         for frame in self.frames:
