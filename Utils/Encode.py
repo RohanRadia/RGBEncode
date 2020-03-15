@@ -1,4 +1,5 @@
 import cv2  # import video generating/encoding library
+import math
 import os  # import operating system interaction library
 from PIL import Image  # import image generating library
 
@@ -13,65 +14,35 @@ class Encode:  # generate class
 
         self.data = None  # class variable defined
         self.ascii_list = None  # class variable defined
-        self.frames = []  # class variable defined
 
-    def to_frames(self, size: int = 30):  # define required arguments
-        a = 0  # define variable; counts current layer
-        b = 0  # define variable; counts current row position
-        count = 0  # define variable; counts amount of frames
+    def to_frame(self):  # define required arguments
+        row = 0
+        row_max = math.ceil(math.sqrt(len(self.raw_data)))
 
-        frame = Image.new('RGB', (size, size), "black")  # generate first frame
-        pixels = frame.load()  # load the frame for editing
+        column = 0
+        column_max = math.ceil(math.sqrt(len(self.raw_data)))
 
-        for letter in self.ascii_list:  # for each letter in ascii_list class variable...
-            if a is size-1 and b is size:  # if row is one less than size and position is at the end of the row...
-                frame.save(f'frame{count}.png')  # save the frame
-                self.frames.append(f'frame{count}.png')  # append the frame to the array
-                count += 1  # increase the frame count by 1
-                frame = Image.new('RGB', (size, size), (0, 0, 0))  # generate new frame
-                pixels = frame.load()  # load the frame for editing
-                a = 0  # reset the layer position
-                b = 0  # reset the row position
+        if row_max < 1:
+            row_max = 1
 
-            if b >= size:  # if row position is greater than the size
-                a += 1  # increase layer position (move onto next layer)
-                b = 0  # reset the row position (move to the front of the row)
+        if column_max < 1:
+            column_max = 1
 
-            pixels[a, b] = tuple(letter)  # set the pixel at the current position to the ascii tuple
-            b += 1  # increase the row position by one
+        frame = Image.new('RGB',
+                          (column_max, row_max),
+                          'black')
+        pixels = frame.load()
 
-        frame.save(f'frame{count}.png')  # save the frame
-        self.frames.append(f'frame{count}.png')  # append the name of the frame to the frames list
+        for letter in self.ascii_list:
+            pixels[column, row] = tuple(letter)
 
-    """
-    def to_video(self, file_name: str = "encoded"):  # define required arguments
-        image_array = []  # define image_array variable
+            column += 1
 
-        for frame in self.frames:  # for each frame in class variable frames
-            with open(frame, 'r') as f:  # open each frame and read, store in variable f
-                img = cv2.imread(frame)  # define img variable and set value as cv2 imread() output of frame variable
-                height, width, layers = img.shape  # make height, width and layers variables equal to output of img
-                # shape attribute
-                size = (width, height)  # size is equal to the width and height that were extracted from the frame
-                image_array.append(img)  # append the image stored in the img variable to image_array
+            if column is column_max-1:
+                row += 1
+                column = 0
 
-        if os.path.exists(f'{file_name}.mp4') is True:  # if a file with the given file name exists already then...
-            file_increment = 1  # set the file counter to 1
-
-            while os.path.exists(f"{file_name}{file_increment}.mp4"):  # while files with the set name + increment exist
-                file_increment += 1  # increment up by 1
-
-        else:  # else...
-            file_increment = None  # reset variable type of file_increment
-            file_increment = ''  # set the value to an empty character in order not to change the name of the .mp4 file
-
-        output = cv2.VideoWriter(f'{file_name}{file_increment}.mp4', 0x7634706d, 1, size)  # encode the video as .mp4
-
-        for i in range(len(image_array)):  # for each value in the length of image_array, assign the value to i
-            output.write(image_array[i])  # write to output the image in position i of image_array
-
-        output.release()  # release software and hardware resources
-    """
+        frame.save("frame.png")
 
     def run(self):  # define required arguments
         """Encrypt"""
@@ -84,15 +55,5 @@ class Encode:  # generate class
         self.ascii_list = to_three(to_ascii(self.data))  # convert all the data to ascii, then split the ascii
         # values into smaller lists of 3, finally store the values in self.ascii_list
 
-        """Generate Frames"""
-        self.to_frames(30)  # generate frames
-
-        """Generate Video"""
-        self.to_video()  # generate video from frames
-
-        """Delete Generated Frames"""
-        for frame in self.frames:
-            os.remove(frame)
-
-a = Encode("thisok", "rohan")
-a.run()
+        """Generate Frame"""
+        self.to_frame()  # generate frames
