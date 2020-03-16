@@ -3,14 +3,15 @@ import math
 import os  # import operating system interaction library
 from PIL import Image  # import image generating library
 
-from Misc import to_ascii, to_three, encrypt  # import all miscellaneous functions from utils
+from Utils.Misc import to_ascii, to_three, encrypt  # import all miscellaneous functions from utils
 
 
 class Encode:  # generate class
-    def __init__(self, raw_data: str, encryption_key: str):  # constructor setup - runs basic code when class is
+    def __init__(self, raw_data: str, encryption_key: str, output_frame_name: str = "frame"):  # constructor setup - runs basic code when class is
         # instantiated
         self.raw_data = raw_data  # class variable defined and assigned
         self.key = encryption_key  # class variable defined and assigned
+        self.output_frame_name = output_frame_name.rstrip() + ".png"
 
         self.data = None  # class variable defined
         self.ascii_list = None  # class variable defined
@@ -19,7 +20,7 @@ class Encode:  # generate class
         row = 0
         row_max = math.ceil(math.sqrt(len(self.raw_data)))
 
-        column = 0
+        column = -1
         column_max = math.ceil(math.sqrt(len(self.raw_data)))
 
         if row_max < 1:
@@ -34,15 +35,15 @@ class Encode:  # generate class
         pixels = frame.load()
 
         for letter in self.ascii_list:
-            pixels[column, row] = tuple(letter)
-
             column += 1
+
+            pixels[column, row] = tuple(letter)
 
             if column is column_max-1:
                 row += 1
-                column = 0
+                column = -1
 
-        frame.save("frame.png")
+        frame.save(self.output_frame_name)
 
     def run(self):  # define required arguments
         """Encrypt"""

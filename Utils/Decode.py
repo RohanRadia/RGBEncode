@@ -1,13 +1,13 @@
 import cv2
 from PIL import Image
 
-from Misc import from_ascii, from_three, decrypt
+from Utils.Misc import from_ascii, from_three, decrypt
 
 
 class Decode:  # generate class
     def __init__(self, frame_name: str, encryption_key: str = " "):  # constructor setup - runs basic code when
         # class is instantiated
-        self.frame_name = f"{frame_name}.png"
+        self.frame_name = frame_name.rstrip()
         self.key = encryption_key  # class variable defined and assigned
 
         self.raw_data = None  # class variable defined and assigned
